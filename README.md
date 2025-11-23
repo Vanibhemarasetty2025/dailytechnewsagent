@@ -23,9 +23,7 @@ Built by a working mom who still wants to keep up with the chaos of tech.
 <img width="1230" height="340" alt="Screenshot 2025-11-23 at 3 06 43 PM" src="https://github.com/user-attachments/assets/e2b0133c-a9e8-46d4-8c0a-654d9c7ab77d" />
 <img width="1117" height="812" alt="Screenshot 2025-11-23 at 3 09 03 PM" src="https://github.com/user-attachments/assets/18bc5876-44ae-467b-ba00-4a493e17564f" />
 
-
-
-## ⚙️ Setup
+---
 
 ## ⚙️ Setup
 1. Clone this repo.
