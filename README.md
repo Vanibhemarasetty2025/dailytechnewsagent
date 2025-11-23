@@ -1,24 +1,30 @@
-# Tech News Weekly Agent (n8n)
+# Tech News Weekly — Automated Newsletter Agent
 
-This n8n workflow generates a weekly tech newsletter and emails it.
+This project automates **weekly tech news learning** using **n8n** and **OpenAI**.  
+It sends a curated “This Week in Tech” newsletter to your Gmail — summarising the biggest stories in AI, Big Tech, security, startups, and more.
 
-## Features
+Built by a working mom who still wants to keep up with the chaos of tech.  
 
-- Fetches latest tech articles from [chosen RSS source].
-- Uses an LLM to summarise the week into sections (AI, Big Tech, Security, etc.).
-- Renders a Medium-style HTML email and sends it to configured recipients.
+---
 
-## Files
+## 🧠 How It Works
 
-- `workflow.json` – exported n8n workflow.
-- `env.example` – example of environment variables required.
+- Uses an **n8n Scheduled Trigger** (weekly – you can change the time/day)
+- Pulls the latest articles from a tech RSS feed (e.g. Wired / TechCrunch)
+- Sends the article list to OpenAI to:
+  - pick the most important stories
+  - group them by theme
+  - write a **Medium-style HTML newsletter**
+- Emails the final digest to your inbox automatically
 
-## Setup
+---
+## Demo Pictures
 
-1. Import `workflow.json` into your n8n instance:
-   - n8n UI → Workflows → Import from file.
-2. Configure credentials:
-   - Email (SMTP/Gmail/etc.).
-   - LLM / OpenAI API key.
-3. Adjust schedule node for when you want the newsletter to run.
-4. (Optional) Edit prompt in the AI node if you want different tone/sections.
+
+## ⚙️ Setup
+
+1. **Clone this repo**
+
+   ```bash
+   git clone https://github.com/<your-username>/<your-repo>.git
+   cd <your-repo>/tech-news-agent
