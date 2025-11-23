@@ -1,0 +1,183 @@
+{
+  "name": "Daily Tech News Digest",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 11
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "eae91a06-9bdd-4bf9-b868-e4f14eb47c22",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "sendTo": "bhemarasetty.s@appsflyer.con",
+        "subject": "Daily Tech News Digest",
+        "message": "={{ $json.output[0].content[0].text }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1168,
+        0
+      ],
+      "id": "1d8ccea2-b604-4a71-91dc-40d8d15bb8a3",
+      "name": "Send a message",
+      "webhookId": "1e64904d-b066-4b6d-a3b4-34df0f8712b2",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "C39CV5sq53wqzfGz",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://techcrunch.com/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "7f631bed-1397-47e4-b05c-a88049e65a33",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "chatgpt-4o-latest",
+          "mode": "list",
+          "cachedResultName": "CHATGPT-4O-LATEST"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=You are a tech newsletter designer and writer.\n\nYou will receive a list of tech news articles for the last week. \nFirst, pick the 5–10 most important stories and group them into 2–4 themes \n(e.g. AI & Big Tech, Cybersecurity, Startups, Policy, Hardware, etc).\n\nThen generate a **single HTML email** that looks like a modern Medium-style newsletter.\n\nDESIGN REQUIREMENTS (STRICT):\n- Use a light grey page background.\n- Center a white \"card\" container with max width 700px.\n- Use nice typography similar to Medium:\n  - font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif;\n  - larger title, good line-height, lots of white space.\n- Add a subtle header bar with the newsletter name and date.\n- Each section should look like a \"block\" with:\n  - <h2> section title\n  - multiple articles inside as \"cards\":\n      - article title in bold\n      - 2–4 sentence summary\n      - small muted source + \"Read more\" link\n- Use horizontal spacing, padding, and dividers between sections.\n- Use ONLY inline styles (no <style> tag, no classes), because this is an email.\n- Keep colors minimal: mostly black/grey text, 1 accent color for links (#2563eb).\n\nHTML STRUCTURE GUIDELINE (FOLLOW CLOSELY):\n\n<!DOCTYPE html>\n<html>\n  <head>\n    <meta charset=\"UTF-8\" />\n    <title>This Week in Tech</title>\n  </head>\n  <body style=\"margin:0;padding:0;background-color:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;\">\n    <div style=\"max-width:700px;margin:0 auto;padding:24px 12px;\">\n      <div style=\"background-color:#111827;border-radius:12px 12px 0 0;padding:16px 24px;color:#f9fafb;\">\n        <div style=\"font-size:13px;text-transform:uppercase;letter-spacing:0.08em;opacity:0.8;\">Weekly Tech News</div>\n        <div style=\"font-size:22px;font-weight:700;margin-top:4px;\">This Week in Tech: [Replace with date range]</div>\n      </div>\n\n      <div style=\"background-color:#ffffff;border-radius:0 0 12px 12px;padding:24px 24px 28px 24px;border:1px solid #e5e7eb;border-top:none;box-shadow:0 18px 45px rgba(15,23,42,0.12);\">\n        <!-- Intro paragraph -->\n        <p style=\"margin:0 0 18px 0;font-size:14px;color:#4b5563;\">\n          [Short intro summarizing the week in 2–3 sentences.]\n        </p>\n\n        <!-- Sections go here -->\n        <!-- For each section: -->\n        <!--\n        <h2 style=\"margin:24px 0 8px 0;font-size:16px;font-weight:700;color:#111827;\">Section Title</h2>\n        <div style=\"border-radius:10px;border:1px solid #e5e7eb;padding:12px 14px 10px 14px;margin-bottom:10px;\">\n          <h3 style=\"margin:0 0 4px 0;font-size:14px;font-weight:600;color:#111827;\">Article title</h3>\n          <p style=\"margin:0 0 6px 0;font-size:13px;line-height:1.6;color:#4b5563;\">\n            Summary text, 2–4 sentences about what happened and why it matters.\n          </p>\n          <div style=\"font-size:12px;color:#9ca3af;\">\n            Source: Source Name · <a href=\"LINK_HERE\" style=\"color:#2563eb;text-decoration:none;\">Read more →</a>\n          </div>\n        </div>\n        -->\n\n        <!-- Footer -->\n        <div style=\"margin-top:28px;padding-top:14px;border-top:1px solid #e5e7eb;font-size:11px;color:#9ca3af;\">\n          You’re receiving this because you subscribed to the automated tech digest. \n          Links go to the original publishers.\n        </div>\n      </div>\n    </div>\n  </body>\n</html>\n\nCONTENT RULES:\n- Replace the placeholder comments with real content.\n- Use concise, human-sounding summaries, not bullet dumps.\n- Never output JSON, only the final HTML document.\n\nINPUT ARTICLES:\n{{ $json.articlesText }}\n\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2,
+      "position": [
+        720,
+        0
+      ],
+      "id": "4e2cc24f-d318-49ac-b3f4-cae5b9546a87",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "LniH1mAXbg3D5mzO",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\n// Limit number of articles so model doesn't choke\nconst maxArticles = 40;\n\nlet text = `Here are tech news articles from the last week from a single source. Each item has a title and link.\\n\\n`;\n\nitems.slice(0, maxArticles).forEach((item, index) => {\n  const title = item.json.title || \"\";\n  const link = item.json.link || \"\";\n\n  text += `${index + 1}. ${title}\\n${link}\\n\\n`;\n});\n\nreturn [\n  {\n    json: {\n      articlesText: text\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "c9990898-23ff-4449-a1ff-f0677d83d8ac",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {
+    "Schedule Trigger": [
+      {
+        "json": {
+          "timestamp": "2025-11-23T10:32:33.209+02:00",
+          "Readable date": "November 23rd 2025, 10:32:33 am",
+          "Readable time": "10:32:33 am",
+          "Day of week": "Sunday",
+          "Year": "2025",
+          "Month": "November",
+          "Day of month": "23",
+          "Hour": "10",
+          "Minute": "32",
+          "Second": "33",
+          "Timezone": "Asia/Jerusalem (UTC+02:00)"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "98d9ad08-bf61-4315-859c-becc785e6736",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5152d9ac095ac50ac164490ed5b6ca31f56c3526e6cebef2c21d86ffe00ae57a"
+  },
+  "id": "F4FoTc33lEsOxLrd",
+  "tags": []
+}
