@@ -27,7 +27,7 @@ Built by a working mom who still wants to keep up with the chaos of tech.
 
 ## ⚙️ Setup
 1. Clone this repo.
-2. Import `n8n_workflow.json` into your n8n instance.
+2. Import `daily news agent.json` into your n8n instance.
 3. Configure credentials:
    - Gmail OAuth2 (send access)
    - OpenAI API key
